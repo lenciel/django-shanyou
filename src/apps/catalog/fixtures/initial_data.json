@@ -1,0 +1,68 @@
+[
+  {
+    "pk": 1,
+    "model": "catalog.productcategory",
+    "fields": {
+      "name": "空调系统",
+      "full_name": "空调系统",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "catalog.productcategory",
+    "fields": {
+      "name": "采暖系统",
+      "full_name": "采暖系统",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "catalog.productcategory",
+    "fields": {
+      "name": "新风系统",
+      "full_name": "新风系统",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  }  ,
+  {
+    "pk": 4,
+    "model": "catalog.productcategory",
+    "fields": {
+      "name": "中央净水",
+      "full_name": "中央净水",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  }  ,
+  {
+    "pk": 5,
+    "model": "catalog.productcategory",
+    "fields": {
+      "name": "中央除尘",
+      "full_name": "中央除尘",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  }  ,
+  {
+    "pk": 6,
+    "model": "catalog.productcategory",
+    "fields": {
+      "name": "智能家居",
+      "full_name": "智能家居",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  }
+]

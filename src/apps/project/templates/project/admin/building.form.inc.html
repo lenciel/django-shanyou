@@ -1,0 +1,7 @@
+{#a simple template works with ModelAwareMixin#}
+{% extends 'common/admin/generic.form.inc.html' %}
+{% load staticfiles %}
+
+{% block form_extra_js %}
+  {% include 'website/district.selector.inc.html' with province_select_id='id_province' city_select_id='id_city' district_select_id='id_district' %}
+{% endblock form_extra_js %}

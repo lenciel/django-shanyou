@@ -1,0 +1,23 @@
+Django==1.5.6
+South==0.8.4
+#fabric
+
+#use it to recognize the timezone with name like "Asia/Chongqing"
+pytz==2013b
+
+pillow
+
+# execel reader and writer
+xlwt==0.7.5
+xlrd
+
+# rest api
+djangorestframework==2.3.8
+# rest api doc. access it from http://host/api/docs/
+django-rest-swagger>=0.1.14
+
+# compress the js and css
+django_compressor
+
+requests==2.2.1
+django-crispy-forms

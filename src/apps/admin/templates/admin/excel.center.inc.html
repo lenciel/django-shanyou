@@ -1,0 +1,41 @@
+{#a simple template works with ModelAwareMixin#}
+
+{% extends 'admin/task.base.inc.html' %}
+
+{% block topnav %}
+<ul class="breadcrumb">
+    <li>
+        <i class="icon-home"></i> <a href="#">主页</a>
+    </li>
+    <li class="active">
+        <i class="icon-folder-open"></i> Excel导出
+    </li>
+</ul>
+<div class="pull-right">
+    {% if not hide_back_btn %}
+{#    XXX: must call "return false;" to prevent bubble up the event to parent#}
+    <a class="btn btn-link btn-large" href="#" onclick="window.history.go(-1);return false;">返回</a>
+    {% endif %}
+</div>
+{% endblock topnav %}
+
+{% block pagenav %}
+  Excel导出
+{% endblock pagenav %}
+
+{% block pagecontent %}
+  <div class="row">
+    <div  class="col-lg-1 col-lg-offset-1">
+      <a href="{% url 'admin:project:building_list.excel' %}" class="btn btn-primary btn-large" target="_blank">楼盘导出</a>
+    </div>
+    <div  class="col-lg-1">
+      <a href="{% url 'admin:project:project_list.excel' %}" class="btn btn-primary btn-large">项目导出</a>
+    </div>
+    <div  class="col-lg-1">
+      <a href="{% url 'admin:customer:customer_list.excel' %}" class="btn btn-primary btn-large">客户导出</a>
+    </div>
+    <div  class="col-lg-1">
+      <a href="{% url 'admin:customer:partner_list.excel' %}" class="btn btn-primary btn-large">合作伙伴导出</a>
+    </div>
+  </div>
+{% endblock pagecontent %}

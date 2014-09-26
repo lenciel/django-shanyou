@@ -1,0 +1,11 @@
+{#a simple template works with ModelAwareMixin#}
+{% extends 'common/admin/generic.form.inc.html' %}
+{% load staticfiles %}
+
+{% block form_extra_js %}
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(":file").enableAceFileInput("apk");
+  });
+</script>
+{% endblock form_extra_js %}

@@ -1,0 +1,48 @@
+[
+  {
+    "pk": 1,
+    "model": "account.user",
+    "password": "zoomteam@123",
+    "fields": {
+      "name": "admin",
+      "email": "admin",
+      "real_name": "管理员",
+      "phone": "88888888",
+      "gender": "M",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "qq": "88888888",
+      "wechat": "88888888",
+      "last_login": "2014-7-24T13:08:16.579",
+      "groups": [],
+      "user_permissions": [],
+
+      "password": "pbkdf2_sha256$10000$jB9GUEOu6AUd$6yyH+yk5rak7vXtMsyN0teQxpyPd6LvUJ9s4t9J1IKQ=",
+      "date_joined": "2013-12-24T13:07:46.697"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "account.user",
+    "password": "123456",
+    "fields": {
+      "email": "rubbish@cdshanyou.com",
+      "name": "rubbish",
+      "real_name": "*公海*",
+      "phone": "00000000",
+      "qq": "00000000",
+      "wechat": "00000000",
+      "gender": "M",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2014-7-27T10:15:29.729",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$10000$JcIDIVlij6lL$96WrdBIgwjQYbXs7hOPEwUGwhrR+6g2Ur5oaBMHlX4I=",
+      "date_joined": "2013-12-27T10:09:15.020"
+    }
+  }
+
+]

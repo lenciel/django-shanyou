@@ -1,0 +1,22 @@
+{#a simple template works with ModelAwareMixin#}
+{% extends 'common/admin/generic.form.inc.html' %}
+{% load staticfiles %}
+
+{% block form_extra_js %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+      // show the interesting_brand_categories by group "category"
+      var $brandCategoryControlsDiv = $('#div_id_interesting_brand_categories .controls');
+      var categories = $.parseJSON('{{ categories }}');
+      $.each(categories, function(key, category) {
+        var $categoryDiv = $('<div><span class="label label-lg label-pink">' + category.name + '</span>&nbsp;&nbsp;</div>').
+            appendTo($brandCategoryControlsDiv);
+        $.each(category.data, function(index , item){
+          // move the default tag into category group
+          $("input[value='" + item.id+"']", $brandCategoryControlsDiv).parent().detach().appendTo($categoryDiv);
+        });
+      });
+      $brandCategoryControlsDiv.addClass("well");
+    });
+  </script>
+{% endblock form_extra_js %}

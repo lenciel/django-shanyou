@@ -1,0 +1,160 @@
+[
+  {
+    "pk": 1,
+    "model": "project.building",
+    "fields": {
+      "name": "楼盘1",
+      "province": "四川省",
+      "city": "成都市",
+      "district": "高新区",
+      "address": "天府大道",
+      "full_name": "四川省成都市高新区天府大道楼盘1",
+      "developer": "万达",
+      "description": "楼盘1",
+      "creator": 101,
+      "owner": 101,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "project.building",
+    "fields": {
+      "name": "楼盘2",
+      "province": "四川省",
+      "city": "成都市",
+      "district": "高新区",
+      "address": "天府大道",
+      "full_name": "四川省成都市高新区天府大道楼盘2",
+      "developer": "万科",
+      "description": "楼盘2",
+      "creator": 100,
+      "owner": 100,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "project.building",
+    "fields": {
+      "name": "楼盘3",
+      "province": "四川省",
+      "city": "成都市",
+      "district": "高新区",
+      "address": "天府大道",
+      "full_name": "四川省成都市高新区天府大道楼盘3",
+      "developer": "金科",
+      "description": "楼盘3",
+      "creator": 102,
+      "owner": 102,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "project.project",
+    "fields": {
+      "building": 1,
+      "house_number": "2-12-1",
+      "customer": 1,
+      "willing": "a",
+      "contract_status": 0,
+      "description": "test1",
+      "interesting_brand_categories": [1, 4],
+      "creator": 103,
+      "owner": 103,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "project.project",
+    "fields": {
+      "building": 2,
+      "house_number": "03-02",
+      "customer": 1,
+      "contract_status": 0,
+      "willing": "b",
+      "interesting_brand_categories": [2, 3, 4],
+      "description": "test",
+      "creator": 101,
+      "owner": 101,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "project.project",
+    "fields": {
+      "building": 3,
+      "house_number": "03-03",
+      "customer": 2,
+      "contract_status": 0,
+      "willing": "c",
+      "description": "test",
+      "creator": 101,
+      "owner": 101,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "project.housemodel",
+    "fields": {
+      "building": 1,
+      "model": "A1",
+      "area": 100.9,
+      "description": "三室两厅",
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+
+  {
+    "pk": 2,
+    "model": "project.housemodel",
+    "fields": {
+      "building": 1,
+      "model": "A2",
+      "area": 120.3,
+      "description": "四室两厅",
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "project.housemodel",
+    "fields": {
+      "building": 2,
+      "model": "A1",
+      "area": 100.9,
+      "description": "三室两厅",
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+
+  {
+    "pk": 4,
+    "model": "project.housemodel",
+    "fields": {
+      "building": 3,
+      "model": "A1",
+      "area": 100.9,
+      "description": "三室两厅",
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  }
+]

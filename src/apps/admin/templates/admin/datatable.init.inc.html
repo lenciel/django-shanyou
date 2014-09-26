@@ -1,0 +1,308 @@
+{% comment %}
+为list类型的页面的datatable提供通用初始化模板
+
+在其它模板中的引用方法：
+{% include 'admin/datatable.init.inc.html' %}
+
+{% endcomment %}
+
+{#just a template for clone to datatable action bar of each of list page#}
+<div id="datatable-actions" class="hidden">
+    <div class="btn-group">
+      <a id="column-picker" class="dropdown-toggle btn btn-default btn-sm"  data-toggle="dropdown" href="#">
+          <i class="icon-list-alt"></i> 列 <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu model_fields pull-right">
+      </ul>
+    </div>
+    <div class="btn-group layout-btns" data-toggle="buttons">
+      <label class="btn btn-default btn-sm layout-normal active">
+        <input type="radio"> <i class="icon-th-large"></i>
+      </label>
+      <label class="btn btn-default btn-sm layout-condensed">
+        <input type="radio"> <i class="icon-th"></i>
+      </label>
+    </div>
+    <div class="btn-group layout-btns" data-toggle="buttons-checkbox">
+      <button type="button" class="btn btn-default btn-sm layout-full"><i class="icon-fullscreen"></i></button>
+    </div>
+</div>
+
+<!-- 在需要的页面再载入需要的js，提高页面整体的加载速度 -->
+{% load staticfiles %}
+<script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.dataTables.bootstrap.js' %}"></script>
+
+<script>
+$(document).ready(function() {
+    var table_args = {
+      "sPaginationType": "bootstrap",
+      "bAutoWidth": false, /* 自动计算宽度 */
+      "bSort": true,
+      "bDestroy": true,
+      "bStateSave": true,
+      "iDisplayLength": 15, /* 默认显示15行 */
+      "aLengthMenu": [
+        [15, 25, 50, 100],
+        [15, 25, 50, 100]
+      ],
+      "bProcessing": true,
+      "aoColumnDefs": [
+        { "bSortable": false, "aTargets": ["unsortable", "unexportable"]}
+      ],
+//        l - Length changing
+//        f - Filtering input
+//        t - The table!
+//        i - Information
+//        p - Pagination
+//        r - pRocessing
+      "sDom": "<'row'<'col-md-2'f><'col-md-1'r><'col-md-9'p>>t<'row'<'col-md-3'l><'col-md-4'i><'col-md-5'p>>",
+
+      "oLanguage": {
+            "sProcessing":   "<div class=\"green bigger text-center\"><i class=\"icon-spinner icon-spin orange bigger-200\"></i>&nbsp处理中...</div>",
+            "sLengthMenu":   "每页显示 _MENU_ 条记录",
+            "sZeroRecords":  "没有匹配的记录",
+            "sInfo":         "显示第 _START_ 至 _END_ 条记录，共 _TOTAL_ 条",
+            "sInfoEmpty":    "没有记录",
+            "sInfoFiltered": "(由 _MAX_ 条记录过滤)",
+            "sInfoPostFix":  "",
+            "sSearch":       "查找:",
+            "sUrl":          "",
+            "oPaginate": {
+                "sFirst":    "首页",
+                "sPrevious": "上页",
+                "sNext":     "下页",
+                "sLast":     "末页"
+            },
+            "oAria": {
+                "sSortDescending": ""
+            },
+            "aoColumnDefs": [
+              { "bSortable": false, "aTargets": [ 'unsortable' ] }
+            ]
+        },
+
+        // local storage
+        "fnStateSave": (function(oSettings, oData) {
+          localStorage.setItem(oSettings.nTable.id, JSON.stringify(oData) );
+        }),
+        "fnStateLoad": (function(oSettings) {
+          return JSON.parse(localStorage.getItem(oSettings.nTable.id));
+        })
+    }
+    $.extend( $.fn.dataTable.defaults, table_args);
+});
+
+
+// 初始化datatable, 并使用server side processing
+function dataTableInitWithServerProcessing(datatable, aoColumnDefs, ajaxsource) {
+  datatable.dataTable({
+    "sDom": "<'row'<'col-md-4'r><'col-md-offset-4 col-md-4'<'datatables-action-bar pull-right'>>>t<'row'<'col-md-3'l><'col-md-4'i><'col-md-5'p>>",  // don't show the buildin filter. see http://www.datatables.net/ref#sDom
+    "aoColumnDefs": aoColumnDefs,
+    "sAjaxSource": ajaxsource,
+    "bProcessing": true,
+    "bServerSide": true
+  });
+
+  var $actions = $('#datatable-actions').clone().toggleClass('hidden', false).appendTo($('.datatables-action-bar'));
+
+  //full screen btn
+  $('.layout-btns .layout-full', $actions).click(function () {
+    if ($(this).hasClass('active')) {
+      // reset
+      $('#sidebar, div.breadcrumbs').toggle('fast');
+      $('#main-content').removeClass('full-content').addClass('main-content');
+      $(window).trigger('resize');
+    } else {
+      // full screen
+      $('#sidebar, div.breadcrumbs').toggle('fast', function () {
+        $('#main-content').removeClass('main-content').addClass('full-content');
+        $(window).trigger('resize');
+      });
+    }
+  });
+
+  //switch condense mode
+  $('.layout-btns .layout-normal').click(function(e){
+    $('.dataTables_wrapper table').removeClass('table-condensed');
+  });
+
+  $('.layout-btns .layout-condensed').click(function(e){
+    $('.dataTables_wrapper table').addClass('table-condensed');
+  });
+
+  // show datatable column picker
+  $('#column-picker', $actions).on("click", function(e){
+    var $menu = $('.dropdown-menu', $(this).parent());
+    $menu.children().remove();
+    var oSettings = datatable.dataTable().fnSettings();
+    for (var i = 0; i < oSettings.aoColumns.length; i++) {
+      var searchValue = $("#id_" + oSettings.aoColumns[i].sName, datatable).first().val();
+      // don't allow change the column if it's searching.
+      // treat the name prefix with "_" as internal column which don't allow touch.
+      var should_hide = (searchValue && searchValue.length > 0) || oSettings.aoColumns[i].sName[0] == '_';
+      if (should_hide) {
+        continue;
+      }
+      var icon_class = oSettings.aoColumns[i].bVisible ? 'icon-check' : 'icon-check-empty';
+      var template = jQuery.validator.format('<li><a href="#" data-col="{0}"><i class="{1}"></i>{2}</a></li>');
+      var il = template(i, icon_class, oSettings.aoColumns[i].sTitle);
+      $menu.append(il);
+    }
+    e.preventDefault();
+  }).parent().on("click", "li>a", function(e){
+    var iCol = $(this).data('col');
+    var bVis = datatable.dataTable().fnSettings().aoColumns[iCol].bVisible;
+    datatable.fnSetColumnVis(iCol, !bVis);
+    e.preventDefault();
+  });
+
+  // load history filter text
+  var oSettings = datatable.fnSettings();
+  $("thead tr:first", datatable).children().each(function () {
+    var colIndex = $(this).data('col');
+
+    $(this).children().each(function(){
+       var title = aoColumnDefs[colIndex].sTitle;
+       if ($(this).is("input")){
+         $(this).attr("placeholder", title);
+       } else if ($(this).is('select')) {
+         $(this).attr("data-placeholder", title);
+       }
+
+       $(this).change(function () {
+         datatable.fnFilter($(this).val(), colIndex);
+       });
+    });
+    // restore the previous filter value to filter editor
+    var stateValue = oSettings.aoPreSearchCols[colIndex]['sSearch'];
+    if (stateValue != '' && stateValue.length > 0) {
+      var $child = $(this).children().first();
+      if ($child.is("select")){
+        $child.val(stateValue.split(','));
+      } else {
+        $child.val(stateValue);
+      }
+    }
+  });
+}
+
+// 初始化inline在其他界面中的datatable, 并使用server side processing,
+// 为了简单, 不支持分页和过滤. 可以考虑以后开放
+function dataTableInlineInitWithServerProcessing(datatable, aoColumnDefs, ajaxsource) {
+  datatable.dataTable({
+//        l - Length changing
+//        f - Filtering input
+//        t - The table!
+//        i - Information
+//        p - Pagination
+//        r - pRocessing
+    "sDom": "t",
+    "aoColumnDefs": aoColumnDefs,
+    "sAjaxSource": ajaxsource,
+    "bProcessing": false,
+    "bServerSide": true,
+    "bPaginate": false
+  });
+}
+/**
+ * see https://github.com/DataTables/Plugins/blob/master/api/fnReloadAjax.js
+ *
+ * By default DataTables only uses the sAjaxSource variable at initialisation
+ * time, however it can be useful to re-read an Ajax source and have the table
+ * update. Typically you would need to use the `fnClearTable()` and
+ * `fnAddData()` functions, however this wraps it all up in a single function
+ * call.
+ *
+ * DataTables 1.10 provides the `dt-api ajax.url()` and `dt-api ajax.reload()`
+ * methods, built-in, to give the same functionality as this plug-in. As such
+ * this method is marked deprecated, but is available for use with legacy
+ * version of DataTables. Please use the new API if you are used DataTables 1.10
+ * or newer.
+ *
+ *  @name fnReloadAjax
+ *  @summary Reload the table's data from the Ajax source
+ *  @author [Allan Jardine](http://sprymedia.co.uk)
+ *  @deprecated
+ *
+ *  @param {string} [sNewSource] URL to get the data from. If not give, the
+ *    previously used URL is used.
+ *  @param {function} [fnCallback] Callback that is executed when the table has
+ *    redrawn with the new data
+ *  @param {boolean} [bStandingRedraw=false] Standing redraw (don't changing the
+ *      paging)
+ *
+ *  @example
+ *    var table = $('#example').dataTable();
+ *
+ *    // Example call to load a new file
+ *    table.fnReloadAjax( 'media/examples_support/json_source2.txt' );
+ *
+ *    // Example call to reload from original file
+ *    table.fnReloadAjax();
+ */
+
+jQuery.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings, sNewSource, fnCallback, bStandingRedraw) {
+  // DataTables 1.10 compatibility - if 1.10 then `versionCheck` exists.
+  // 1.10's API has ajax reloading built in, so we use those abilities
+  // directly.
+  if (jQuery.fn.dataTable.versionCheck) {
+    var api = new jQuery.fn.dataTable.Api(oSettings);
+
+    if (sNewSource) {
+      api.ajax.url(sNewSource).load(fnCallback, !bStandingRedraw);
+    }
+    else {
+      api.ajax.reload(fnCallback, !bStandingRedraw);
+    }
+    return;
+  }
+
+  if (sNewSource !== undefined && sNewSource !== null) {
+    oSettings.sAjaxSource = sNewSource;
+  }
+
+  // Server-side processing should just call fnDraw
+  if (oSettings.oFeatures.bServerSide) {
+    this.fnDraw();
+    return;
+  }
+
+  this.oApi._fnProcessingDisplay(oSettings, true);
+  var that = this;
+  var iStart = oSettings._iDisplayStart;
+  var aData = [];
+
+  this.oApi._fnServerParams(oSettings, aData);
+
+  oSettings.fnServerData.call(oSettings.oInstance, oSettings.sAjaxSource, aData, function (json) {
+    /* Clear the old information from the table */
+    that.oApi._fnClearTable(oSettings);
+
+    /* Got the data - add it to the table */
+    var aData = (oSettings.sAjaxDataProp !== "") ?
+        that.oApi._fnGetObjectDataFn(oSettings.sAjaxDataProp)(json) : json;
+
+    for (var i = 0; i < aData.length; i++) {
+      that.oApi._fnAddData(oSettings, aData[i]);
+    }
+
+    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+
+    that.fnDraw();
+
+    if (bStandingRedraw === true) {
+      oSettings._iDisplayStart = iStart;
+      that.oApi._fnCalculateEnd(oSettings);
+      that.fnDraw(false);
+    }
+
+    that.oApi._fnProcessingDisplay(oSettings, false);
+
+    /* Callback user function - for event handlers etc */
+    if (typeof fnCallback == 'function' && fnCallback !== null) {
+      fnCallback(oSettings);
+    }
+  }, oSettings);
+};
+</script>

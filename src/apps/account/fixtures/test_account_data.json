@@ -1,0 +1,91 @@
+[
+  {
+    "pk": 100,
+    "model": "account.user",
+    "password": "123456",
+    "fields": {
+      "email": "staff@cdshanyou.com",
+      "name": "staff",
+      "real_name": "测试员100",
+      "phone": "123456789100",
+      "qq": "100",
+      "wechat": "wechat100",
+      "gender": "M",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2013-12-27T10:15:29.729",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$10000$JcIDIVlij6lL$96WrdBIgwjQYbXs7hOPEwUGwhrR+6g2Ur5oaBMHlX4I=",
+      "date_joined": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 101,
+    "model": "account.user",
+    "password": "123456",
+    "fields": {
+      "email": "tester101@cdshanyou.com",
+      "name": "tester101",
+      "real_name": "测试员101",
+      "phone": "123456789101",
+      "qq": "101",
+      "wechat": "wechat101",
+      "gender": "M",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2013-12-27T10:15:29.729",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$10000$JcIDIVlij6lL$96WrdBIgwjQYbXs7hOPEwUGwhrR+6g2Ur5oaBMHlX4I=",
+      "date_joined": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 102,
+    "model": "account.user",
+    "password": "123456",
+    "fields": {
+      "email": "test102@cdshanyou.com",
+      "name": "tester102",
+      "real_name": "测试员102",
+      "phone": "123456789102",
+      "gender": "F",
+      "wechat": "wechat102",
+      "qq": "102",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2013-12-27T10:15:29.729",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$10000$JcIDIVlij6lL$96WrdBIgwjQYbXs7hOPEwUGwhrR+6g2Ur5oaBMHlX4I=",
+      "date_joined": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 103,
+    "model": "account.user",
+    "password": "123456",
+    "fields": {
+      "email": "boss1@cdshanyou.com",
+      "name": "boss1",
+      "real_name": "小老板1",
+      "phone": "123456789103",
+      "gender": "F",
+      "wechat": "wechat103",
+      "qq": "103",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2013-12-27T10:15:29.729",
+      "groups": [],
+      "accessible_users": [101, 102],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$10000$JcIDIVlij6lL$96WrdBIgwjQYbXs7hOPEwUGwhrR+6g2Ur5oaBMHlX4I=",
+      "date_joined": "2013-12-27T10:09:15.020"
+    }
+  }
+]

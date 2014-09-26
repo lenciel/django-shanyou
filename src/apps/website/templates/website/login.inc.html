@@ -1,0 +1,53 @@
+{% load staticfiles %}
+
+<!-- Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-model-label" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="id-login-form" method="post" action="{% url 'website:customer:login' %}" role="form" class="login-form">
+        {% csrf_token %}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="login-model-label">登陆</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="id_name">用户名</label>
+              <input id="id_name" name="name" type="text" class="required form-control">
+            </div>
+            <div class="form-group">
+              <label for="id_password">密码</label>
+              <input id="id_password" name="password" type="password" class="required form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">登陆</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="{% static 'website/scripts/plugin/jquery-form/jquery-form.min.js' %}"></script>
+<script>
+  {% include 'website/form.errors.inc.html' with form_id='id-login-form' %}
+  $(document).ready(function() {
+    var $login_form = $('#id-login-form');
+    var validator = $login_form.validate();
+    $login_form.submit(function() {
+      $(this).ajaxSubmit({
+        success: function(data) {
+          if (data && data['ret'] > 0) {
+            validator.showErrors(data['errmsg-detail']);
+          } else {
+            $('#header .login-group > a').hide();
+            $('#header .btn-group .username > strong').html(' ' + $('#id-login-form #id_name').val() + ' ');
+            $('#header .btn-group').show();
+            $('#login-modal').modal('hide');
+          }
+        }
+      });
+      return false;
+    });
+  });
+</script>

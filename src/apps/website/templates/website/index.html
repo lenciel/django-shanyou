@@ -1,0 +1,198 @@
+{% extends 'website/website.base.inc.html' %}
+{% load static %}
+{% block title %} e游 {% endblock title %}
+
+
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'website/styles/flexslider.css' %}" media="screen"/>
+<link rel="stylesheet" href="{% static 'website/styles/app.css' %}" media="screen"/>
+{% endblock %}
+
+{% block main_content %}
+<div class="col-lg-12 col-sm-12 col-md-12">
+
+  <section>
+    <!-- slider -->
+    <div style="position: relative;">
+      <a id="slider-left" class="spec_backward"></a>
+      <a id="slider-right" class="spec_forward"></a>
+      <div id="slider" class="flexslider" style="margin-bottom: 0;">
+        <ul class="slides">
+          {% for banner in banner_list %}
+            <li>
+              <img src="{{ banner.title_image_url }}">
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="fixed-width" style="min-height: 1500px; position: relative;">
+    <div class="hot-scenery-group">
+      <div class="header">
+        <p class="group-title">热门景点</p>
+        <p class="group-nav">
+          <a class="active" href="#">当季</a>
+          <a href="#">国内</a>
+          <a href="#">国外</a>
+          <a href="#">周边</a>
+          <a href="#">更多</a>
+        </p>
+      </div>
+      <div class="body">
+        {% for scenery in scenery_list %}
+          <div class="scenery">
+            <a href="{% url 'website:tour:scenery' scenery.id %}">
+              <img src="{{ scenery.image_url }}"/>
+              <div class="caption">
+                <div class="title">{{ scenery.name }}</div>
+                <div class="summary">{{ scenery.summary }}</div>
+                <div class="like"><div class="icon_like_white"></div><p>12491</p></div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="border-bottom-dashed_gray"></div>
+    <div class="hot-article-group">
+      <div class="header">
+        <p class="group-title">精彩攻略游记</p>
+        <p class="group-nav">
+          <a class="active" href="#">精华</a>
+          <a href="#">最新</a>
+          <a href="#">更多</a>
+        </p>
+      </div>
+      <div class="body">
+        {% for article in article_list %}
+          <div class="article">
+            <img src="{{ article.title_image_url }}" class="title-img"/>
+            <div class="content">
+              <div class="title">{{ article.title }}</div>
+              <img src="{% static 'website/img/home_img_5.png' %}" class="author-img img-circle"/>
+              <div class="author">作者：<strong>r9liuc</strong></div>
+              <div class="statistics">
+                <div class="icon_browse"></div>12345&nbsp;&nbsp;&nbsp;<div class="icon_comment"></div>12345&nbsp;&nbsp;&nbsp;<div class="icon_like_gray"></div>12345
+              </div>
+              <div class="summary">{{ article.summary }}</div>
+            </div>
+          </div>
+        {% endfor %}
+        <div style="clear: left;"></div>
+        <div class="special-event">
+          <div class="header">
+            <p class="group-title">精彩专题</p>
+          </div>
+          <div class="body">
+            {% for event in event_list %}
+              <div class="event"><a href="#"><img src="{{ event.title_image_url }}"/></a></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="active-people">
+        <div class="header">
+          <p class="group-title">优秀作者</p>
+        </div>
+        <div class="author-group">
+          <div class="index">
+            <!-- img placeholder that will be replaced by js -->
+            <img src=""/>
+          </div>
+          <div class="title-img">
+            <img src="{% static 'website/img/test_img_event_1.gif' %}" class="img-circle"/>
+          </div>
+          <div class="name-description"><strong>grennteacup</strong><p>上知天文,下知地理,中晓人和,明阴阳,懂八卦。</p></div>
+        </div>
+        <div class="author-group">
+          <div class="index">
+            <img src=""/>
+          </div>
+          <div class="title-img">
+            <img src="{% static 'website/img/test_img_event_2.gif' %}" class="img-circle"/>
+          </div>
+          <div class="name-description"><strong>grennteacup</strong><p>上知天文,下知地理,中晓人和,明阴阳,懂八卦。</p></div>
+        </div>
+        <div class="author-group">
+          <div class="index">
+            <img src=""/>
+          </div>
+          <div class="title-img">
+            <img src="{% static 'website/img/test_img_event_3.gif' %}" class="img-circle"/>
+          </div>
+          <div class="name-description"><strong>grennteacup</strong><p>上知天文,下知地理,中晓人和,明阴阳,懂八卦。</p></div>
+        </div>
+        <div class="author-group">
+          <div class="index">
+            <img src=""/>
+          </div>
+          <div class="title-img">
+            <img src="{% static 'website/img/test_img_event_4.gif' %}" class="img-circle"/>
+          </div>
+          <div class="name-description"><strong>grennteacup</strong><p>上知天文,下知地理,中晓人和,明阴阳,懂八卦。</p></div>
+        </div>
+        <div class="author-group">
+          <div class="index">
+            <img src=""/>
+          </div>
+          <div class="title-img">
+            <img src="{% static 'website/img/test_img_event_4.gif' %}" class="img-circle"/>
+          </div>
+          <div class="name-description"><strong>grennteacup</strong><p>上知天文,下知地理,中晓人和,明阴阳,懂八卦。</p></div>
+        </div>
+        <img src="{% static 'website/img/adv_sina.png' %}" style="margin: 10px 0;"/>
+        <img src="{% static 'website/img/adv_wechat.png' %}"/>
+    </div>
+
+  </section>
+</div>
+{% endblock main_content %}
+
+{% block extrajs %}
+<script type="text/javascript" src="{% static 'website/scripts/plugin/flexslider/jquery-flexslider-min-2.1.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+      // slider
+      var bindPrev = function(slider) {
+        $('#slider-left').click(function() {
+          slider.direction = 'prev';
+          if (slider.hasOwnProperty('currentSlide') && slider.currentSlide != 0)  {
+            slider.flexAnimate(slider.currentSlide - 1, true);
+          }
+        });
+      }
+
+      var bindNext = function(slider) {
+        $('#slider-right').click(function() {
+          slider.direction = 'next';
+          if (slider.hasOwnProperty('currentSlide') && slider.currentSlide != slider.last)  {
+            slider.flexAnimate(slider.currentSlide + 1, true);
+          }
+        });
+      }
+
+      $('.flexslider').flexslider({
+        slideshowSpeed: 5000,
+        directionNav: false,
+        animation: "slide",
+        controlNav: false,
+        animationLoop: true,
+        slideshow: false,
+        start: function(slider) {
+          bindPrev(slider);
+          bindNext(slider);
+        }
+      });
+
+      // replace indexed image
+      $('.active-people > .author-group > .index > img').each(
+        function(index) {
+          $(this).attr('src', '{% static 'website/img/top_' %}' + (index + 1) + '.gif');
+        }
+      );
+    });
+  </script>
+{% endblock extrajs %}

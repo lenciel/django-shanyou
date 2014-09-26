@@ -1,0 +1,92 @@
+{#a simple template works with ModelAwareMixin#}
+{% extends 'common/admin/generic.form.inc.html' %}
+{% load staticfiles %}
+
+{% block pagecontent %}
+  {{ block.super }}
+  <div class="form-group" id="id_table_container">
+    <label class="control-label col-md-2 no-padding-right">重要日期(格式:年-月-日)</label>
+    <div class="col-md-10 left">
+      <div>
+        <a href="#" class="btn-minier btn-success btn" id="id_add_row"><i class='icon-plus'></i></a>
+        <a href="#" class="btn-minier btn-warning btn" id="id_del_row"><i class='icon-minus'></i></a>
+      </div>
+      <div id="id_key_days_table"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block form_js %}
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+    var data =  $.parseJSON('{{ key_days_json }}' || "[]");
+    $("#id_key_days_table").handsontable({
+      data: data,
+      startRows: 1,
+      startCols: 1,
+      minSpareRows: 0,
+      colWidths:[200, 200, 400],
+      colHeaders: ["名称", "日期", "简介"],
+      columns: [
+          {data: "name", type: 'text'},
+          {data: "key_day", type: 'date', dateFormat: 'yy-mm-dd'},
+          {data: "description", type: 'text'}
+        ]
+    });
+    var $handsontable = $('#id_key_days_table').data('handsontable');
+    // move table container into the from area.
+    jQuery("#id_table_container").detach().appendTo('#id_form_extra_area');
+    $('#id_key_days_table table').addClass("table-hover");  // table-striped
+
+    // select cell will be lost if move focus to other control instead of handsontable
+    // so use a variable to keep current row.
+    var currentRow = -1;
+    $handsontable.addHook('afterSelectionEnd', function(r1, c1, r2, c2) {
+      currentRow = r1;
+    });
+
+    $("#id_del_row").on("click", function(e){
+      e.preventDefault();
+      if (currentRow > -1) {
+        $handsontable.alter("remove_row", currentRow);
+      }
+    });
+    $("#id_add_row").on("click", function(e){
+      e.preventDefault();
+      if ($handsontable.countRows() == 0 || !$handsontable.isEmptyRow($handsontable.countRows() -1)){
+        $handsontable.alter("insert_row");
+        // insert to the bottom of table.
+        $handsontable.selectCell($handsontable.countRows() - 1, 0);
+      }
+    });
+
+    $('#div_id_channel_type :radio').change(function(){
+      var partnerType = '0';
+      var partnerTypeSelected = ($(this).val() == partnerType);
+      if (!partnerTypeSelected) {
+        // remove old chosen value in partner.
+        $('#id_partner').val("").trigger("chosen:updated");
+      }
+      // don't allow change the partner if channel type is not partner
+      $('#id_partner').prop("disabled", !partnerTypeSelected).trigger("chosen:updated");
+    });
+
+    $('#div_id_channel_type :checked').trigger("change");
+
+    var $form = $('#{{ form_id }}');
+    var ajaxFormOptions = $.extend($form.buildAjaxFormOptions(), {
+      beforeSerialize : function () {
+        // pure text + image tag
+        $("#id_key_days_json").val(JSON.stringify($handsontable.getData()));
+      }
+    });
+    $form.ajaxForm(ajaxFormOptions);
+
+    var rules = $form.buildFormValidationRules();
+    $form.validate({rules: rules});
+
+  });
+</script>
+{% endblock form_js %}

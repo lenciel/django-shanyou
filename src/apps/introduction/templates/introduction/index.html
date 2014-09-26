@@ -1,0 +1,20 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+{% compress css %}
+    <link rel="stylesheet" href="{% static 'website/styles/bootstrap.css' %}"/>
+{% endcompress %}
+
+{% compress js %}
+    <script src="{% static 'website/scripts/libs/jquery-2.0.2.min.js' %}"></script>
+{% endcompress %}
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>

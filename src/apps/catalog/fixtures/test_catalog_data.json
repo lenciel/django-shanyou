@@ -1,0 +1,108 @@
+[
+  {
+    "pk": 1,
+    "model": "catalog.brand",
+    "fields": {
+      "name": "东芝",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "catalog.brand",
+    "fields": {
+      "name": "三菱",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "catalog.brand",
+    "fields": {
+      "name": "松下",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "catalog.brand",
+    "fields": {
+      "name": "三星",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "catalog.brand",
+    "fields": {
+      "name": "LG",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "catalog.brand",
+    "fields": {
+      "name": "长虹",
+      "created": "2014-05-1T00:00:00.000",
+      "updated": "2014-05-1T00:00:00.000",
+      "creator": 1
+    }
+  },
+  {
+    "pk": 1,
+    "model": "catalog.brandtoproductcategory",
+    "fields": {
+      "product_category": 1,
+      "brand": 2,
+      "full_name": "\u4e09\u83f1\u7a7a\u8c03\u7cfb\u7edf"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "catalog.brandtoproductcategory",
+    "fields": {
+      "product_category": 1,
+      "brand": 1,
+      "full_name": "\u4e1c\u829d\u7a7a\u8c03\u7cfb\u7edf"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "catalog.brandtoproductcategory",
+    "fields": {
+      "product_category": 1,
+      "brand": 3,
+      "full_name": "\u677e\u4e0b\u7a7a\u8c03\u7cfb\u7edf"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "catalog.brandtoproductcategory",
+    "fields": {
+      "product_category": 1,
+      "brand": 6,
+      "full_name": "\u957f\u8679\u7a7a\u8c03\u7cfb\u7edf"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "catalog.brandtoproductcategory",
+    "fields": {
+      "product_category": 2,
+      "brand": 2,
+      "full_name": "三菱采暖系统"
+    }
+  }
+
+]

@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<script>
+  $(document).ready(function() {
+    var $province_selector = $('#{{ province_select_id }}'); // 省
+    var $city_selector = $('#{{ city_select_id }}');         // 市
+    var $district_selector = $('#{{ district_select_id }}'); // 区/县
+
+    {% if object %}
+      init_district_selector($province_selector, $city_selector, $district_selector,
+        '{{ object.province }}', '{{ object.city }}', '{{ object.district }}', cascade_call_back);
+    {% else %}
+      init_district_selector($province_selector, $city_selector, $district_selector,
+        '四川省', '成都市', '武侯区', cascade_call_back);
+    {% endif %}
+
+    $province_selector.trigger('chosen:updated');
+    $city_selector.trigger('chosen:updated');
+    $district_selector.trigger('chosen:updated');
+  });
+
+  function cascade_call_back($select) {
+    $select.trigger('chosen:updated');
+  }
+</script>

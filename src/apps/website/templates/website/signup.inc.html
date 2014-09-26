@@ -1,0 +1,86 @@
+{% load staticfiles %}
+
+<!-- Modal -->
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signup-model-label" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="id-signup-form" method="post" action="{% url 'website:customer:sign_up' %}" role="form" class="login-form">
+        {% csrf_token %}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="signup-model-label">注册</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="id_name">用户名</label>
+              <input id="id_name" name="name" type="text" class="required form-control">
+            </div>
+            <div class="form-group">
+              <label for="id_password1">密码</label>
+              <input id="id_password1" name="password1" type="password" class="required form-control">
+            </div>
+            <div class="form-group">
+              <label for="id_password2">密码</label>
+              <input id="id_password2" name="password2" type="password" class="required form-control">
+            </div>
+            <div class="form-group">
+              <label for="id_id_captcha_1">输入下面图片中的文字</label>
+              <div class="captcha-group">
+                <img src="" class="captcha pull-right"/>
+                <input id="id_captcha_1" name="captcha_1" class="required form-control" type="text">
+                <input id="id_captcha_0" name="captcha_0" type="hidden"/>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">注册</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="{% static 'website/scripts/plugin/jquery-form/jquery-form.min.js' %}"></script>
+<script>
+  {% include 'website/form.errors.inc.html' with form_id='id-signup-form' %}
+  $(document).ready(function() {
+    $(".captcha").before('<a class="pull-right" id="id_captcha_refresh" href="#">&nbsp;&nbsp;换一张</a>');
+    $('#signup-modal').on('shown.bs.modal', function (e) {
+      load_captcha();
+    });
+    var load_captcha = function() {
+      var $captcha_img = $('.captcha');
+      var $captcha_input = $('#id_captcha_0');
+      $.getJSON('{% url 'captcha-refresh' %}', {}, function(json) {
+        $captcha_img.attr('src', json.image_url);
+        $captcha_input.attr('value', json.key);
+      });
+      return false;
+    }
+    var $form = $('#id_signup_form');
+    $("#id_captcha_refresh").click(load_captcha);
+    var $signup_form = $('#id-signup-form');
+    var validator = $signup_form.validate();
+    $signup_form.submit(function() {
+      $(this).ajaxSubmit({
+        success: function(data) {
+          if (data && data['ret'] > 0) {
+            if (data['errmsg-detail'].captcha) {
+              data['errmsg-detail']['captcha_1'] = data['errmsg-detail'].captcha;
+              delete data['errmsg-detail'].captcha;
+            }
+            console.log(data);
+            load_captcha();
+            validator.showErrors(data['errmsg-detail']);
+          } else {
+            $('#header .login-group > a').hide();
+            $('#header .btn-group .username > strong').html(' ' + $('#id-signup-form #id_name').val() + ' ');
+            $('#header .btn-group').show();
+            $('#signup-modal').modal('hide');
+          }
+        }
+      });
+      return false;
+    });
+  });
+</script>

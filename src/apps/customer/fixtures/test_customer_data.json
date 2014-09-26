@@ -1,0 +1,70 @@
+[
+  {
+    "pk": 1,
+    "model": "customer.customer",
+    "fields": {
+      "name": "客户1",
+      "phone": "55555",
+      "address": "成都高新区软件园",
+      "qq": "555",
+      "wechat": "wechat5",
+      "email": "customer1@test.com",
+      "description": "测试客户1",
+      "creator": 1,
+      "owner": 100,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "customer.customer",
+    "fields": {
+      "name": "客户2",
+      "phone": "66666",
+      "address": "成都春熙路",
+      "qq": "666",
+      "wechat": "wechat4",
+      "email": "customer2@test.com",
+      "description": "测试客户2",
+      "creator": 1,
+      "owner": 101,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "customer.partner",
+    "fields": {
+      "name": "合作伙伴1",
+      "phone": "77777",
+      "address": "成都动物园",
+      "qq": "777",
+      "email": "partner1@test.com",
+      "contacts": "张勋",
+      "description": "测试合作伙伴1",
+      "creator": 1,
+      "owner": 2,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "customer.partner",
+    "fields": {
+      "name": "合作伙伴2",
+      "phone": "88888",
+      "address": "成都清水河",
+      "qq": "888",
+      "email": "partner2@test.com",
+      "contacts": "李某某",
+      "description": "测试合作伙伴2",
+      "creator": 1,
+      "owner": 102,
+      "created": "2013-12-27T10:09:15.020",
+      "updated": "2013-12-27T10:09:15.020"
+    }
+  }
+]
